@@ -1,0 +1,5 @@
+src/main/resources
+bin
+out/production/crowdla
+out/test/crowdla
+build/deps

@@ -29,10 +29,15 @@ import org.vertx.groovy.platform.Verticle
 class GroovyPingVerticle extends Verticle {
 
   def start() {
-
-    vertx.eventBus.registerHandler("ping-address") { message ->
-      message.reply("pong!")
-      container.logger.info("Sent back pong groovy!")
-    }
+      vertx.createHttpServer().requestHandler { req ->
+          container.logger.info("handling request - supr")
+          def file = req.uri == "/" ? "index.html" : req.uri
+          req.response.sendFile "webroot/$file"
+      }.listen(8080)
+      container.logger.info("webserver running!")
+//    vertx.eventBus.registerHandler("ping-address") { message ->
+//      message.reply("pong!")
+//      container.logger.info("Sent back pong groovy!")
+//    }
   }
 }
